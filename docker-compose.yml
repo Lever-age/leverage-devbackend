@@ -12,3 +12,10 @@ services:
       - ./volumes/db/data:/data
     ports:
       - 3306:3306
+  api:
+    image: leverage-api:latest
+    build: ./images/api
+    ports:
+      - 5000:5000
+    links:
+      - db
