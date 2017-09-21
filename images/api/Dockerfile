@@ -13,4 +13,4 @@ RUN chown -R 1000:1000 /api
 USER leverage
 
 ENTRYPOINT ["/usr/local/bin/python3.6"]
-CMD ["runserver.py"]
+CMD ["runserver.py", "5000", "0.0.0.0"]
