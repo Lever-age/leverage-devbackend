@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7.19
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: leverage
+      MYSQL_USER: leverage
+      MYSQL_PASSWORD: leverage
+    volumes:
+      - ./volumes/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./volumes/db/data:/data
+    ports:
+      - 3306:3306
