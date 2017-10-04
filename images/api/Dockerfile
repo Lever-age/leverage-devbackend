@@ -3,13 +3,13 @@ FROM python:3.6.2
 EXPOSE 5000
 WORKDIR /api
 RUN useradd -U -u 1000 -d /api leverage
-RUN pip install flask-cors
 
 ADD app/requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
+ADD app/requirements-dev.txt /requirements-dev.txt
+RUN pip install -r /requirements-dev.txt
 ADD app_config.py /api/leverageapi/app_config.py
 ADD app /api
-ADD runserver.py /api/runserver.py
 
 RUN chown -R 1000:1000 /api
 USER leverage
