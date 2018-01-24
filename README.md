@@ -21,6 +21,16 @@ docker-compose build
 docker-compose up -d
 ```
 
+## Troubleshooting
+Ran into some trouble on Ubuntu. Default MySQL port is taken (for now stop MySQL), and docker-registry uses port 5000 (for now stop docker-registry).
+
+```
+sudo /etc/init.d/mysql stop
+sudo lsof -i -n -P | grep 5000
+sudo /etc/init.d/docker-registry stop
+```
+
+
 ## Testing DB Changes
 
 Anytime changes are made to the database
