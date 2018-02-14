@@ -13,6 +13,11 @@ and make sure that the first line of the script is
 `USE leverage;`. Remove other `USE` statements
 if necessary.
 
+You will need to create a user. Create a file in that directory (such as grant_user.sql) and put in a line like this:
+```
+grant all privileges on [replace with database name].* to [replace with database user]@localhost identified by '[replace with database password]';
+```
+
 ## Getting Started
 
 ```
@@ -20,6 +25,22 @@ git submodule update --init
 docker-compose build
 docker-compose up -d
 ```
+
+## Running Docker
+
+### The docker-compose command launches the docker containers that Leverage uses. See what containers are running with:
+
+```
+sudo docker ps
+```
+
+### To stop containers, see which runs are running with the 'ps' command above, then type:
+
+```
+sudo docker stop CONTAINER_ID
+```
+
+
 
 ## Troubleshooting
 Ran into some trouble on Ubuntu. Default MySQL port is taken (for now stop MySQL), and docker-registry uses port 5000 (for now stop docker-registry).
