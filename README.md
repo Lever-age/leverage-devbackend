@@ -28,18 +28,29 @@ docker-compose up -d
 
 ## Running Docker
 
-### The docker-compose command launches the docker containers that Leverage uses. See what containers are running with:
+#### See available containers with the following command (but for now only launch with the docker-compose command above:
 
 ```
-sudo docker ps
+docker images
 ```
 
-### To stop containers, see which runs are running with the 'ps' command above, then type:
+#### The docker-compose command launches the docker containers that Leverage uses. See what containers are running with:
 
 ```
-sudo docker stop CONTAINER_ID
+docker ps
 ```
 
+#### Connect to a command line interface on running container with:
+
+```
+docker exec -it CONTAINER_ID /bin/bash
+```
+
+#### To stop containers, see which runs are running with the 'ps' command above, then type:
+
+```
+docker stop CONTAINER_ID
+```
 
 
 ## Troubleshooting
