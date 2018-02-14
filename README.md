@@ -46,11 +46,14 @@ docker ps
 docker exec -it CONTAINER_ID /bin/bash
 ```
 
+Connect to the container for leverage-api. If you type 'ls' you will see all the files from the [feature/v2 branch of the api repository](https://github.com/Lever-age/api/tree/feature/v2). To leave the docker container, type 'exit'  -- but note that this connand does not stop tye container! 
+
 #### To stop containers, see which runs are running with the 'ps' command above, then type:
 
 ```
 docker stop CONTAINER_ID
 ```
+
 
 
 ## Troubleshooting
