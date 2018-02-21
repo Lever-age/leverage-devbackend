@@ -20,6 +20,9 @@ grant all privileges on [replace with database name].* to [replace with database
 
 ## Getting Started
 
+#### Run all three commands the first time you run, or any time you pull the latest from git. After that you only need to run the 'up' command:
+
+
 ```
 git submodule update --init
 docker-compose build
@@ -28,13 +31,19 @@ docker-compose up -d
 
 ## Running Docker
 
+#### After launching Docker :
+
+```
+docker images
+```
+
 #### See available containers with the following command (but for now only launch with the docker-compose command above:
 
 ```
 docker images
 ```
 
-#### The docker-compose command launches the docker containers that Leverage uses. See what containers are running with:
+#### The docker-compose command above launches the docker containers that Leverage uses. See what containers are running with:
 
 ```
 docker ps

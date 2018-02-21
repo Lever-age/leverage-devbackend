@@ -15,6 +15,6 @@ services:
     image: leverage-api:latest
     build: ./images/api
     ports:
-      - 5000:5000
+      - 5100:5000
     links:
       - db
