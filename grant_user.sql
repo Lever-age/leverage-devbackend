@@ -1,0 +1,1 @@
+grant all privileges on leverage_philly.* to leverage@'%' identified by 'leverage_pass';

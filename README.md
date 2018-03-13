@@ -18,6 +18,8 @@ You will need to create a user. Create a file in that directory (such as grant_u
 grant all privileges on [replace with database name].* to [replace with database user]@localhost identified by '[replace with database password]';
 ```
 
+An example grant_user.sql file is in the root directory that you can copy into `volumes/db/docker-entrypoint-initdb.d`
+
 ## Getting Started
 
 #### Run all three commands the first time you run, or any time you pull the latest from git. After that you only need to run the 'up' command:
@@ -47,6 +49,12 @@ docker images
 
 ```
 docker ps
+```
+
+#### Get the IP address of the containers with with:
+
+```
+docker inspect CONTAINER_ID
 ```
 
 #### Connect to a command line interface on running container with:
