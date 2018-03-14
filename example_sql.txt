@@ -1,0 +1,170 @@
+
+-- SQL TO SHOW DIRTY DATA --
+
+-- Ways to misspell Philadelphia (excluding Phillipsburg)
+SELECT city, count(*) AS numc 
+    FROM `contributor_address` 
+    WHERE city LIKE 'Phil%' AND city NOT LIKE '%rg' 
+        AND state = 'PA'
+    GROUP BY city 
+    ORDER BY numc DESC 
+
+-- CITIES IN PA OUTSIDE PHILADELPHIA -- 
+SELECT city, count(*) AS numc 
+    FROM `contributor_address` 
+    WHERE NOT (city LIKE 'Phil%' AND city NOT LIKE '%rg')
+        AND state = 'PA'
+    GROUP BY city 
+    ORDER BY numc DESC 
+
+-- TEST ABOVE (CITIES IN PA OUTSIDE PHILADELPHIA) TO MAKE SURE IT INCLUDES Philipsburg, PA --
+SELECT city, count(*) AS numc 
+    FROM `contributor_address` 
+    WHERE NOT (city LIKE 'Phil%' AND city NOT LIKE '%rg')
+        AND state = 'PA'
+        AND city LIKE 'Phil%'
+    GROUP BY city 
+    ORDER BY numc DESC 
+
+
+-- COMPARE DONATION TOTALS FROM DATES TO TOTALS FROM PLACE -- 
+SELECT id, `donations_2015`+ `donations_2016`+ `donations_2017` AS sumd, `donations_in_pa`+ `donations_out_pa` AS sump 
+    FROM `committee` 
+    WHERE 1 
+    ORDER BY `committee`.`id` ASC 
+
+
+
+-- SQL TO REMEMBER --
+
+-- Distinct zipcodes in Philly
+SELECT DISTINCT `zipcode` 
+    FROM `contributor_address` 
+    WHERE city LIKE 'Phil%' AND city NOT LIKE '%rg' AND state = 'PA' 
+
+
+-- Get candidates missing link to committee in table `candidate_committees`
+SELECT `candidate`.* FROM `candidacy`, `candidate` WHERE `candidacy`.candidate_id = `candidate`.id
+    AND `candidacy`.race_id NOT IN (22, 23, 24)
+    AND `candidate`.id NOT IN (
+        SELECT candidate_id FROM `candidate_committees`
+    )
+
+
+-- Extra Committees
+SELECT * FROM `committee` WHERE committee_name LIKE '%Kenn%' 
+SELECT * FROM `committee` WHERE committee_name LIKE '%Krasner%' 
+SELECT * FROM `committee` WHERE committee_name LIKE '%Tomlinson%' 
+
+
+-- Get donors for a given committeee
+SELECT c.* FROM `political_donation` d,
+    `contributor` c, 
+    `contributor_address` a
+WHERE d.contributor_id = c.id 
+    AND c.address_id = a.id 
+    AND d.committee_id = 1098
+    AND d.contribution_type_id IN (20, 23, 25, 26, 27, 28)
+ORDER BY c.id
+
+
+## Begin Update Cache Fields ## 
+
+-- Set total contributions by year
+
+UPDATE `committee` c
+SET donations_2017 = (
+    SELECT SUM(d.donation_amount) as total_donation
+        FROM `political_donation` d 
+        WHERE d.committee_id = c.id
+            AND donation_date > '2016-12-31'
+            AND donation_date < '2018-01-01'
+    );
+
+
+UPDATE `committee` c
+SET donations_2017 = 0 
+WHERE donations_2017 IS NULL;
+
+
+UPDATE `committee` c
+SET donations_2016 = (
+    SELECT SUM(d.donation_amount) as total_donation
+        FROM `political_donation` d 
+        WHERE d.committee_id = c.id
+            AND donation_date > '2015-12-31'
+            AND donation_date < '2017-01-01'
+    );
+
+
+UPDATE `committee` c
+SET donations_2016 = 0 
+WHERE donations_2016 IS NULL;
+
+
+UPDATE `committee` c
+SET donations_2015 = (
+    SELECT SUM(d.donation_amount) as total_donation
+        FROM `political_donation` d 
+        WHERE d.committee_id = c.id
+            AND donation_date > '2014-12-31'
+            AND donation_date < '2016-01-01'
+    );
+
+
+UPDATE `committee` c
+SET donations_2015 = 0 
+WHERE donations_2015 IS NULL;
+
+
+-- Set total contributions by address (in Philly, in PA, out PA)
+
+UPDATE `committee` c
+SET donations_in_philly = (
+    SELECT SUM(d.donation_amount) AS total_donation
+        FROM `political_donation` d 
+            LEFT JOIN `contributor` ON d.contributor_id = contributor.id
+            LEFT JOIN `contributor_address` a ON contributor.address_id = a.id
+        WHERE d.committee_id = c.id
+            AND a.city LIKE 'Phil%' AND a.city NOT LIKE '%rg' 
+            AND a.state = 'PA'
+    );
+
+
+UPDATE `committee` c
+SET donations_in_philly = 0 
+WHERE donations_in_philly IS NULL;
+
+
+UPDATE `committee` c
+SET donations_in_pa = (
+    SELECT SUM(d.donation_amount) AS total_donation
+        FROM `political_donation` d 
+            LEFT JOIN `contributor` ON d.contributor_id = contributor.id
+            LEFT JOIN `contributor_address` a ON contributor.address_id = a.id
+        WHERE d.committee_id = c.id
+            AND a.state = 'PA'
+    );
+
+
+UPDATE `committee` c
+SET donations_in_pa = 0 
+WHERE donations_in_pa IS NULL;
+
+
+UPDATE `committee` c
+SET donations_out_pa = (
+    SELECT SUM(d.donation_amount) AS total_donation
+        FROM `political_donation` d 
+            LEFT JOIN `contributor` ON d.contributor_id = contributor.id
+            LEFT JOIN `contributor_address` a ON contributor.address_id = a.id
+        WHERE d.committee_id = c.id
+            AND a.state != 'PA'
+    );
+
+
+UPDATE `committee` c
+SET donations_out_pa = 0 
+WHERE donations_out_pa IS NULL;
+
+## End Update Cache Fields ## 
