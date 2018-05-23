@@ -8,17 +8,11 @@ cross-platform development and testing.
 
 The DB container needs a SQL script to
 bootstrap the database with. Place a
-database dump in `volumes/db/docker-entrypoint-initdb.d`,
-and make sure that the first line of the script is
-`USE leverage;`. Remove other `USE` statements
-if necessary.
-
-You will need to create a user. Create a file in that directory (such as grant_user.sql) and put in a line like this:
-```
-grant all privileges on [replace with database name].* to [replace with database user]@localhost identified by '[replace with database password]';
-```
-
-An example grant_user.sql file is in the root directory that you can copy into `volumes/db/docker-entrypoint-initdb.d`
+database dump in `volumes/db/docker-entrypoint-initdb.d`
+to have the DB bootstrap itself with that dump.
+The DB will bootstrap that data into a database named
+"leverage", which is accessible by a user:password combination
+of "leverage:leverage".
 
 ## Getting Started
 
