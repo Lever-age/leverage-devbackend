@@ -10,17 +10,17 @@ services:
     volumes:
       - ./volumes/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
-      - 3306:3306
+      - 5220:3306
   api:
     image: leverage-api:latest
     build: ./images/api
     ports:
-      - 5100:5000
+      - 5221:5000
     links:
       - db
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:4.7
     ports:
-      - 8080:80
+      - 5222:80
     links:
       - db
