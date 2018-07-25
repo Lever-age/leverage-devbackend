@@ -4,19 +4,29 @@ This project provides configurations to run the leverage API
 and database in a dockerized environment for simple
 cross-platform development and testing.
 
+## Creating Local Repository
+
+Create local repository of leverage-devbackend on your computer.
+You can follow these instructions if not familiar with git:
+https://services.github.com/on-demand/github-cli/clone-repo-cli
+
 ## Before Getting Started
 
 The DB container needs a SQL script to
 bootstrap the database with. Place a
 database dump in `volumes/db/docker-entrypoint-initdb.d`
 to have the DB bootstrap itself with that dump.
+To get the database dump file - search for leverage_philly file
+on leverage slack channel.
 The DB will bootstrap that data into a database named
 "leverage", which is accessible by a user:password combination
 of "leverage:leverage".
 
 ## Getting Started
 
-#### Run all three commands the first time you run, or any time you pull the latest from git. After that you only need to run the 'up' command:
+#### Run all three commands the first time you run, or any time you pull the latest from git. 
+(If you are using Windows make sure you run them in docker terminal after you cd into your local repository folder from the above step.)
+After that you only need to run the 'up' command:
 
 
 ```
