@@ -24,7 +24,8 @@ of "leverage:leverage".
 
 ## Getting Started
 
-#### Run all three commands the first time you run, or any time you pull the latest from git (if you are using Windows make sure you run them in docker terminal after you cd into your local repository folder from the above step). After that you only need to run the 'up' command:
+#### Run all three commands the first time you run, or any time you pull the latest from git (if you are using Windows make sure you run them 
+in docker terminal after you cd into your local repository folder from the above step). If it's not your first run - you only need to run the 'up' command:
 
 
 ```
@@ -58,7 +59,11 @@ docker ps
 ```
 docker inspect CONTAINER_ID
 ```
+#### If you run windows try the following command to get IP address:
 
+```
+docker-machine ip default
+```
 #### Connect to a command line interface on running container with:
 
 ```
@@ -73,6 +78,9 @@ Connect to the container for leverage-api. If you type 'ls' you will see all the
 docker stop CONTAINER_ID
 ```
 
+## Accessing phpmyadmin leverage database in a browser
+Type IP address of the container from the step above ':' port number. Port number comes from docker-compose.yml in leverage-devbackend folder
+ and can also be found running ```docker inspect``` for phpmyadmin container. Use user:password combination of "leverage:leverage"
 
 
 ## Troubleshooting
