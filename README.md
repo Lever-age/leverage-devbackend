@@ -24,8 +24,7 @@ of "leverage:leverage".
 
 ## Getting Started
 
-#### Run all three commands the first time you run, or any time you pull the latest from git (if you are using Windows make sure you run them 
-in docker terminal after you cd into your local repository folder from the above step). If it's not your first run - you only need to run the 'up' command:
+#### Run all three commands the first time you run, or any time you pull the latest from git (if you are using Windows make sure you run them in docker terminal after you cd into your local repository folder from the above step). If it's not your first run - you only need to run the 'up' command:
 
 
 ```
