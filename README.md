@@ -41,7 +41,7 @@ docker-compose up -d
 docker images
 ```
 
-#### See available containers with the following command (but for now only launch with the docker-compose command above:
+#### See available images with the following command (but only launch containers with the docker-compose command above):
 
 ```
 docker images
@@ -69,12 +69,12 @@ docker-machine ip default
 docker exec -it CONTAINER_ID /bin/bash
 ```
 
-Connect to the container for leverage-api. If you type 'ls' you will see all the files from the [feature/v2 branch of the api repository](https://github.com/Lever-age/api/tree/feature/v2). To leave the docker container, type 'exit'  -- but note that this connand does not stop tye container! 
+Connect to the container for leverage-api. If you type 'ls' you will see all the files from the [master branch of the api repository](https://github.com/Lever-age/api/tree/master). To leave the docker container, type 'exit'  -- but note that this command does not stop the container!
 
-#### To stop containers, see which runs are running with the 'ps' command above, then type:
+## Tear down Docker containers
 
 ```
-docker stop CONTAINER_ID
+docker-compose down
 ```
 
 ## Accessing phpmyadmin leverage database in a browser
@@ -83,19 +83,13 @@ Type IP address of the container from the step above ':' port number. Port numbe
 
 
 ## Troubleshooting
-Ran into some trouble on Ubuntu. Default MySQL port is taken (for now stop MySQL), and docker-registry uses port 5000 (for now stop docker-registry).
 
-```
-sudo /etc/init.d/mysql stop
-sudo lsof -i -n -P | grep 5000
-sudo /etc/init.d/docker-registry stop
-```
-
+Report any issues you run into setting up the environment so we can document them here!
 
 ## Testing DB Changes
 
 Anytime changes are made to the database
-schema, the db container will need to be
+schema (or data itself), the db container will need to be
 destroyed and re-created with the new
 data. The steps to do so are as follows:
 
