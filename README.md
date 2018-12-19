@@ -69,6 +69,13 @@ docker-machine ip default
 docker exec -it CONTAINER_ID /bin/bash
 ```
 
+
+#### Connect to MySQL container from command line
+```
+mysql -u leverage -p -h 0.0.0.0 -P 5220
+```
+
+
 Connect to the container for leverage-api. If you type 'ls' you will see all the files from the [master branch of the api repository](https://github.com/Lever-age/api/tree/master). To leave the docker container, type 'exit'  -- but note that this command does not stop the container!
 
 ## Tear down Docker containers

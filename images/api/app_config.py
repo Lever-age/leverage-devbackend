@@ -17,7 +17,12 @@ DB_CONN='mysql+mysqldb://{0}:{1}@{2}:{3}/{4}?charset=utf8'\
         .format(DB_USER, DB_PW, DB_HOST, DB_PORT, DB_NAME)
 
 DEFAULT_RACE = 'general'
-DEFAULT_YEAR = 2017
+DEFAULT_YEAR = 2018
+
+# Set to domains allowed to access API
+CORS = '*'
+
+API_BASE_URL = 'http://127.0.0.1:5050/api/'
 
 SECRET_KEY = 'super secret key'
 
